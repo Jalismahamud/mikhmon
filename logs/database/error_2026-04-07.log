@@ -1,0 +1,42 @@
+[2026-04-07 18:32:04] Connection Error: SQLSTATE[HY000] [1045] Access denied for user 'mikhmon_user'@'localhost' (using password: YES)
+[2026-04-07 18:45:57] Connection Error: SQLSTATE[HY000] [1049] Unknown database 'mikhmon_db'
+[2026-04-07 18:46:58] Connection Error: SQLSTATE[HY000] [1049] Unknown database 'mikhmon_db'
+[2026-04-07 18:48:28] EXECUTE Error: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'mikhmon_db.admin_users' doesn't exist | Query: SELECT COUNT(*) as total_admins FROM admin_users;
+[2026-04-07 18:48:28] EXECUTE Error: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'mikhmon_db.routers' doesn't exist | Query: SELECT COUNT(*) as total_routers FROM routers;
+[2026-04-07 18:48:32] SELECTONE Error: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'mikhmon_db.admin_users' doesn't exist
+[2026-04-07 18:48:32] EXECUTE Error: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'mikhmon_db.admin_users' doesn't exist | Query: INSERT INTO `admin_users` 
+                      (username, password_hash, email, full_name, role, is_active) 
+                      VALUES (?, ?, ?, ?, ?, ?)
+[2026-04-07 18:48:32] SELECTONE Error: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'mikhmon_db.admin_users' doesn't exist
+[2026-04-07 18:48:32] EXECUTE Error: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'mikhmon_db.admin_users' doesn't exist | Query: INSERT INTO `admin_users` 
+                      (username, password_hash, email, full_name, role, is_active) 
+                      VALUES (?, ?, ?, ?, ?, ?)
+[2026-04-07 18:48:32] SELECTONE Error: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'mikhmon_db.admin_users' doesn't exist
+[2026-04-07 18:48:33] EXECUTE Error: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'mikhmon_db.admin_users' doesn't exist | Query: INSERT INTO `admin_users` 
+                      (username, password_hash, email, full_name, role, is_active) 
+                      VALUES (?, ?, ?, ?, ?, ?)
+[2026-04-07 18:48:33] SELECTONE Error: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'mikhmon_db.admin_users' doesn't exist
+[2026-04-07 18:48:33] EXECUTE Error: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'mikhmon_db.admin_users' doesn't exist | Query: INSERT INTO `admin_users` 
+                      (username, password_hash, email, full_name, role, is_active) 
+                      VALUES (?, ?, ?, ?, ?, ?)
+[2026-04-07 18:48:33] SELECT Error: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'mikhmon_db.admin_users' doesn't exist | Query: SELECT id FROM admin_users WHERE role != 'superadmin' AND is_active = 1
+[2026-04-07 18:48:33] SELECT Error: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'mikhmon_db.routers' doesn't exist | Query: SELECT id, admin_id, currency FROM routers WHERE is_active = 1
+[2026-04-07 18:48:33] SELECT Error: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'mikhmon_db.routers' doesn't exist | Query: SELECT id, admin_id FROM routers WHERE is_active = 1
+[2026-04-07 18:48:33] SELECT Error: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'mikhmon_db.routers' doesn't exist | Query: SELECT id, admin_id, currency FROM routers WHERE is_active = 1
+[2026-04-07 18:49:01] SELECTONE Error: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'mikhmon_db.admin_users' doesn't exist
+[2026-04-07 18:49:01] SELECTONE Error: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'mikhmon_db.routers' doesn't exist
+[2026-04-07 18:49:01] SELECTONE Error: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'mikhmon_db.vouchers' doesn't exist
+[2026-04-07 18:49:01] SELECTONE Error: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'mikhmon_db.user_logs' doesn't exist
+[2026-04-07 18:49:01] SELECTONE Error: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'mikhmon_db.transaction_history' doesn't exist
+[2026-04-07 18:49:01] SELECTONE Error: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'mikhmon_db.system_logs' doesn't exist
+[2026-04-07 18:49:01] SELECT Error: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'mikhmon_db.admin_users' doesn't exist | Query: SELECT id, username, email, role, is_active FROM admin_users ORDER BY role DESC
+[2026-04-07 18:49:01] SELECT Error: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'mikhmon_db.admin_users' doesn't exist | Query: 
+                SELECT 
+                    au.username, 
+                    COUNT(r.id) as router_count,
+                    SUM(CASE WHEN r.is_active = 1 THEN 1 ELSE 0 END) as active_count
+                FROM admin_users au
+                LEFT JOIN routers r ON au.id = r.admin_id
+                WHERE au.role != 'superadmin'
+                GROUP BY au.id
+            
