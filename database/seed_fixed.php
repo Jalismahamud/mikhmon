@@ -90,8 +90,8 @@ foreach ($admins as $admin) {
             $query = "INSERT INTO routers 
                       (admin_id, name, description, ip_address, api_port, api_username, 
                        api_password_encrypted, hotspot_name, dns_server, currency, 
-                       interface_name, idle_timeout, max_concurrent_users, is_active) 
-                      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                       interface_name, idle_timeout, max_concurrent_users, is_active, created_by) 
+                      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             
             $stmt = $pdo->prepare($query);
             $stmt->execute(array(
@@ -108,7 +108,8 @@ foreach ($admins as $admin) {
                 $template['interface'],
                 1800,
                 100,
-                1
+                1,
+                $admin['id']  // created_by
             ));
             
             $created_stats['routers']++;
@@ -146,16 +147,20 @@ foreach ($routers as $router) {
             $price = rand(1, 25);
             
             $query = "INSERT INTO vouchers 
-                      (admin_id, router_id, code, profile, price, created_at) 
-                      VALUES (?, ?, ?, ?, ?, NOW())";
+                      (admin_id, router_id, voucher_code, username, profile_name, 
+                       price, currency, created_by) 
+                      VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             
             $stmt = $pdo->prepare($query);
             $stmt->execute(array(
                 $router['admin_id'],
                 $router['id'],
                 $code,
+                'user_' . substr($code, 1),
                 $profile,
-                $price
+                $price,
+                'USD',
+                $router['admin_id']  // created_by
             ));
             
             $created_stats['vouchers']++;
@@ -192,8 +197,9 @@ foreach ($sample_routers as $router) {
             $ip = "192.168." . rand(1, 255) . "." . rand(1, 255);
             
             $query = "INSERT INTO user_logs 
-                      (router_id, admin_id, username, action, action_type, ip_address, details) 
-                      VALUES (?, ?, ?, ?, ?, ?, ?)";
+                      (router_id, admin_id, username, action, action_type, 
+                       ip_address, details, performed_by) 
+                      VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             
             $stmt = $pdo->prepare($query);
             $stmt->execute(array(
@@ -203,7 +209,8 @@ foreach ($sample_routers as $router) {
                 $action,
                 strtoupper($action),
                 $ip,
-                'User activity logged'
+                'User activity logged',
+                $router['admin_id']  // performed_by
             ));
             
             $created_stats['user_logs']++;
@@ -225,32 +232,33 @@ echo str_repeat("─", 60) . "\n\n";
 $payment_methods = array('Cash', 'Card', 'Mobile Money', 'Check');
 $transaction_types = array('voucher_sale', 'credit_sale', 'refund', 'user_add');
 
-// Get all vouch ers
-$stmt = $pdo->query("SELECT id, admin_id FROM vouchers LIMIT 20");
+// Get all vouchers with their router_id
+$stmt = $pdo->query("SELECT v.id, v.admin_id, v.router_id FROM vouchers v LIMIT 20");
 $vouchers = $stmt->fetchAll();
 
 foreach ($vouchers as $voucher) {
     try {
         $query = "INSERT INTO transaction_history 
-                  (admin_id, voucher_id, transaction_type, reference_id, description, 
-                   amount, payment_method, payment_status, customer_name, created_by) 
-                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        
-        $stmt = $pdo->prepare($query);
-        $stmt->execute(array(
-            $voucher['admin_id'],
-            $voucher['id'],
-            $transaction_types[array_rand($transaction_types)],
-            'REF_' . rand(10000, 99999),
-            'Test transaction',
-            rand(1, 25),
-            $payment_methods[array_rand($payment_methods)],
-            'completed',
-            'Customer ' . rand(1, 100),
-            $voucher['admin_id']
-        ));
-        
-        $created_stats['transactions']++;
+                      (admin_id, router_id, transaction_type, reference_id, description, 
+                       amount, currency, payment_method, payment_status, customer_name, created_by) 
+                      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            
+            $stmt = $pdo->prepare($query);
+            $stmt->execute(array(
+                $voucher['admin_id'],
+                $voucher['router_id'],
+                $transaction_types[array_rand($transaction_types)],
+                'REF_' . rand(10000, 99999),
+                'Test transaction',
+                rand(1, 25),
+                'USD',
+                $payment_methods[array_rand($payment_methods)],
+                'completed',
+                'Customer ' . rand(1, 100),
+                $voucher['admin_id']  // created_by
+            ));
+            
+            $created_stats['transactions']++;
         
     } catch (Exception $e) {
         // Continue on error

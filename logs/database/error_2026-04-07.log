@@ -165,3 +165,7 @@
                 WHERE au.role != 'superadmin'
                 GROUP BY au.id
             
+[2026-04-07 19:41:40] EXECUTE Error: SQLSTATE[HY093]: Invalid parameter number | Query: UPDATE `routers` 
+                      SET `description` = ?,`idle_timeout` = ?,`max_concurrent_users` = ?, updated_at = NOW(), updated_by = ? 
+                      WHERE admin_id = ? AND id = ? 
+                      LIMIT 1
