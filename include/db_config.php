@@ -8,8 +8,8 @@
 
 // Database Connection Settings
 define('DB_HOST', 'localhost:3306');
-define('DB_USER', 'mikhmon_user');
-define('DB_PASS', 'mikhmon_secure_pass_123');
+define('DB_USER', 'root');
+define('DB_PASS', '');
 define('DB_NAME', 'mikhmon_db');
 define('DB_CHARSET', 'utf8mb4');
 
