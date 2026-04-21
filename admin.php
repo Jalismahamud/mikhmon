@@ -65,6 +65,12 @@ include('./include/readcfg.php');
 
 include_once('./lib/routeros_api.class.php');
 include_once('./lib/formatbytesbites.php');
+
+// Include new database authentication
+require_once('./include/db_config.php');
+require_once('./lib/Database.class.php');
+require_once('./lib/AdminUser.class.php');
+require_once('./include/auth.php');
 ?>
     
 <?php
@@ -73,14 +79,36 @@ if ($id == "login" || substr($url, -1) == "p") {
   if (isset($_POST['login'])) {
     $user = $_POST['user'];
     $pass = $_POST['pass'];
-    if ($user == $useradm && $pass == decrypt($passadm)) {
-      $_SESSION["mikhmon"] = $user;
-
-        echo "<script>window.location='./admin.php?id=sessions'</script>";
     
-    } else {
-      $error = '<div style="width: 100%; padding:5px 0px 5px 0px; border-radius:5px;" class="bg-danger"><i class="fa fa-ban"></i> Alert!<br>Invalid username or password.</div>';
+    // Try new database-based authentication first
+    try {
+      $auth = new AuthManager();
+      $login_result = $auth->login($user, $pass);
+      
+      if ($login_result) {
+        // Login successful - AuthManager sets session variables
+        $_SESSION["mikhmon"] = $user;
+        echo "<script>window.location='./admin.php?id=sessions'</script>";
+        exit;
+      } else {
+        // Database login failed, try old method as fallback
+        if ($user == $useradm && $pass == decrypt($passadm)) {
+          $_SESSION["mikhmon"] = $user;
+          echo "<script>window.location='./admin.php?id=sessions'</script>";
+          exit;
+        }
+      }
+    } catch (Exception $e) {
+      // If database auth fails, try old method
+      if ($user == $useradm && $pass == decrypt($passadm)) {
+        $_SESSION["mikhmon"] = $user;
+        echo "<script>window.location='./admin.php?id=sessions'</script>";
+        exit;
+      }
     }
+    
+    // Both methods failed
+    $error = '<div style="width: 100%; padding:5px 0px 5px 0px; border-radius:5px;" class="bg-danger"><i class="fa fa-ban"></i> Alert!<br>Invalid username or password.</div>';
   }
   
 

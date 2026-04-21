@@ -4,7 +4,6 @@ $data['mikhmon'] = array ('1'=>'mikhmon<|<goldenwifi','mikhmon>|>aWNlbA==');
 
 $data['new-7087'] = array ('1'=>'new-7087!','new-7087@|@','new-7087#|#','new-7087%','new-7087^','new-7087&Rp','new-7087*10','new-7087(1','new-7087)','new-7087=10','new-7087@!@disable');
 $data['new-5844'] = array ('1'=>'new-5844!','new-5844@|@','new-5844#|#','new-5844%','new-5844^','new-5844&Rp','new-5844*10','new-5844(1','new-5844)','new-5844=10','new-5844@!@disable');
-$data['new-4222'] = array ('1'=>'new-4222!','new-4222@|@','new-4222#|#','new-4222%','new-4222^','new-4222&Rp','new-4222*10','new-4222(1','new-4222)','new-4222=10','new-4222@!@disable');
 $data['new-2045'] = array ('1'=>'new-2045!','new-2045@|@','new-2045#|#','new-2045%','new-2045^','new-2045&Rp','new-2045*10','new-2045(1','new-2045)','new-2045=10','new-2045@!@disable');
 $data['new-5015'] = array ('1'=>'new-5015!','new-5015@|@','new-5015#|#','new-5015%','new-5015^','new-5015&Rp','new-5015*10','new-5015(1','new-5015)','new-5015=10','new-5015@!@disable');
 $data['new-1673'] = array ('1'=>'new-1673!','new-1673@|@','new-1673#|#','new-1673%','new-1673^','new-1673&Rp','new-1673*10','new-1673(1','new-1673)','new-1673=10','new-1673@!@disable');
@@ -20,3 +19,8 @@ $data['new-3594'] = array ('1'=>'new-3594!','new-3594@|@','new-3594#|#','new-359
 $data['new-6522'] = array ('1'=>'new-6522!','new-6522@|@','new-6522#|#','new-6522%','new-6522^','new-6522&Rp','new-6522*10','new-6522(1','new-6522)','new-6522=10','new-6522@!@disable');
 $data['new-6520'] = array ('1'=>'new-6520!','new-6520@|@','new-6520#|#','new-6520%','new-6520^','new-6520&Rp','new-6520*10','new-6520(1','new-6520)','new-6520=10','new-6520@!@disable');
 $data['new-6520'] = array ('1'=>'new-6520!','new-6520@|@','new-6520#|#','new-6520%','new-6520^','new-6520&Rp','new-6520*10','new-6520(1','new-6520)','new-6520=10','new-6520@!@disable');
+$data['new-6235'] = array ('1'=>'new-6235!','new-6235@|@','new-6235#|#','new-6235%','new-6235^','new-6235&Rp','new-6235*10','new-6235(1','new-6235)','new-6235=10','new-6235@!@disable');
+$data['new-4413'] = array ('1'=>'new-4413!','new-4413@|@','new-4413#|#','new-4413%','new-4413^','new-4413&Rp','new-4413*10','new-4413(1','new-4413)','new-4413=10','new-4413@!@disable');
+$data['new-4413'] = array ('1'=>'new-4413!','new-4413@|@','new-4413#|#','new-4413%','new-4413^','new-4413&Rp','new-4413*10','new-4413(1','new-4413)','new-4413=10','new-4413@!@disable');
+$data['new-4119'] = array ('1'=>'new-4119!','new-4119@|@','new-4119#|#','new-4119%','new-4119^','new-4119&Rp','new-4119*10','new-4119(1','new-4119)','new-4119=10','new-4119@!@disable');
+$data['new-4119'] = array ('1'=>'new-4119!','new-4119@|@','new-4119#|#','new-4119%','new-4119^','new-4119&Rp','new-4119*10','new-4119(1','new-4119)','new-4119=10','new-4119@!@disable');
