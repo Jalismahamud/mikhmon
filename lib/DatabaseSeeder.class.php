@@ -114,7 +114,14 @@ class DatabaseSeeder {
         //$this->db->execute("DELETE FROM admin_users WHERE role != 'superadmin'");
 
         $admins = array(
-            // Superadmin - already exists
+            // Primary admin account
+            array(
+                'username' => 'admin',
+                'password' => '12345678',
+                'email' => 'admin@mikhmon.local',
+                'full_name' => 'Administrator',
+                'role' => 'admin'
+            ),
             
             // Additional test admins
             array(
